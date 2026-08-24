@@ -1,0 +1,64 @@
+---
+layout: page
+title: Fitness Tracker
+permalink: /tracker/
+---
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+
+<div id="tracker-status" class="tracker-status is-loading">Loading data&hellip;</div>
+
+<div id="tracker-content" class="tracker-status is-hidden">
+
+  <div class="tracker-section">
+    <h2>Current</h2>
+    <div class="stat-grid">
+      <div class="stat-tile"><span class="stat-label">7-Day Avg Weight (lbs)</span><span class="stat-value" id="stat-avg-weight">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">Total Weight Lost (lbs)</span><span class="stat-value" id="stat-total-lost">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">7-Day Avg Calories</span><span class="stat-value" id="stat-avg-cals">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">Current Weekly Rate of Loss (lbs)</span><span class="stat-value" id="stat-weekly-rol">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">Current Estimated TDEE (cals)</span><span class="stat-value" id="stat-est-tdee">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">7-Day Avg Steps</span><span class="stat-value" id="stat-avg-steps">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">7-Day Avg Protein (g)</span><span class="stat-value" id="stat-avg-protein">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">7-Day Avg Carbs (g)</span><span class="stat-value" id="stat-avg-carbs">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">7-Day Avg Fat (g)</span><span class="stat-value" id="stat-avg-fat">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">7-Day Avg Sleep (hrs)</span><span class="stat-value" id="stat-avg-sleep">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">7-Day Avg Weekly RoL (lbs)</span><span class="stat-value" id="stat-avg-weekly-rol">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">7-Day Avg TDEE (cals)</span><span class="stat-value" id="stat-avg-tdee">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">Est. Body Fat %</span><span class="stat-value" id="stat-bodyfat">&ndash;</span></div>
+    </div>
+  </div>
+
+  <div class="tracker-section">
+    <h2>Theoretical</h2>
+    <div class="stat-grid">
+      <div class="stat-tile"><span class="stat-label">Basal Metabolic Rate (cals)</span><span class="stat-value" id="stat-bmr">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">Thermic Effect of Food (cals)</span><span class="stat-value" id="stat-tef">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">NEAT &ndash; Steps (cals)</span><span class="stat-value" id="stat-neat">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">EAT &ndash; Training (cals)</span><span class="stat-value" id="stat-eat">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">Theoretical TDEE (cals)</span><span class="stat-value" id="stat-theoretical-tdee">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">Expected Rate of Loss (lbs)</span><span class="stat-value" id="stat-expected-rol">&ndash;</span></div>
+      <div class="stat-tile"><span class="stat-label">Tracking Variance (lbs)</span><span class="stat-value" id="stat-tracking-variance">&ndash;</span></div>
+    </div>
+  </div>
+
+  <div class="tracker-section">
+    <h2>Weight &amp; Calories</h2>
+    <div class="chart-container"><canvas id="chart-weight-calories"></canvas></div>
+  </div>
+
+  <div class="tracker-section">
+    <h2>Measurements</h2>
+    <div class="chart-container"><canvas id="chart-measurements"></canvas></div>
+  </div>
+
+  <div class="tracker-section">
+    <h2>Weekly Rate of Loss</h2>
+    <div class="chart-container"><canvas id="chart-rate-of-loss"></canvas></div>
+  </div>
+
+</div>
+
+<script src="{{ '/assets/js/tracker.js' | relative_url }}" defer></script>
