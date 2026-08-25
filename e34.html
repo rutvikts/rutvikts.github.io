@@ -1,0 +1,25 @@
+---
+layout: page
+title: e34
+permalink: /e34/
+---
+
+<p>Progress on my BMW E34 project car &mdash; writeups and photos as I work through it.</p>
+
+<div class="e34-grid">
+  {%- assign posts = site.e34 | sort: "date" | reverse -%}
+  {%- for post in posts -%}
+  <a class="e34-card" href="{{ post.url | relative_url }}">
+    {%- if post.cover -%}
+      <img class="e34-card-image" src="{{ post.cover | relative_url }}" alt="{{ post.title }}">
+    {%- endif -%}
+    <div class="e34-card-body">
+      <span class="e34-card-date">{{ post.date | date: "%b %-d, %Y" }}</span>
+      <h3 class="e34-card-title">{{ post.title }}</h3>
+      <p class="e34-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+    </div>
+  </a>
+  {%- else -%}
+  <p>No posts yet.</p>
+  {%- endfor -%}
+</div>
