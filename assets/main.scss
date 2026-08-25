@@ -182,3 +182,91 @@
   max-width: 100%;
   border-radius: 6px;
 }
+
+.e34-carousel-section {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.e34-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+  scrollbar-width: none;
+}
+
+.e34-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.e34-carousel-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  aspect-ratio: 3 / 2;
+}
+
+.e34-carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.e34-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.e34-carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.e34-carousel-prev {
+  left: 10px;
+}
+
+.e34-carousel-next {
+  right: 10px;
+}
+
+.e34-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+
+.e34-carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: #ccc;
+  padding: 0;
+  cursor: pointer;
+}
+
+.e34-carousel-dot.is-active {
+  background: #424242;
+}
+
+@media (max-width: 600px) {
+  .e34-carousel-slide {
+    aspect-ratio: 4 / 3;
+  }
+}
