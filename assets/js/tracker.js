@@ -292,29 +292,40 @@ function renderStatTiles(stats) {
   setStat('stat-tracking-variance', stats.trackingVariance, 2);
 }
 
-function renderWeightCaloriesChart(dateArray, avgWeight, rawCalories) {
-  new Chart(document.getElementById('chart-weight-calories'), {
+const WEIGHT_CAL_MODES = {
+  daily: { weightLabel: 'Daily Weight (lbs)', caloriesLabel: 'Daily Calories' },
+  avg: { weightLabel: '7-Day Avg Weight (lbs)', caloriesLabel: '7-Day Avg Calories' },
+};
+
+function renderWeightCaloriesChart(dateArray, avgWeight, rawWeight, avgCalories, rawCalories) {
+  const series = {
+    daily: { weight: rawWeight, calories: rawCalories },
+    avg: { weight: avgWeight, calories: avgCalories },
+  };
+  let mode = 'daily';
+
+  const chart = new Chart(document.getElementById('chart-weight-calories'), {
     type: 'line',
     data: {
       labels: dateArray,
       datasets: [
         {
-          label: '7-Day Avg Weight (lbs)',
-          data: avgWeight,
+          label: WEIGHT_CAL_MODES[mode].weightLabel,
+          data: series[mode].weight,
           yAxisID: 'yWeight',
           borderColor: '#2b6cb0',
           spanGaps: true,
-          tension: 0.15,
-          pointRadius: 2,
+          tension: 0,
+          pointRadius: 1,
         },
         {
-          label: 'Daily Calories',
-          data: rawCalories,
+          label: WEIGHT_CAL_MODES[mode].caloriesLabel,
+          data: series[mode].calories,
           yAxisID: 'yCalories',
           borderColor: '#dd6b20',
           spanGaps: true,
           tension: 0,
-          pointRadius: 2,
+          pointRadius: 1,
         },
       ],
     },
@@ -328,6 +339,18 @@ function renderWeightCaloriesChart(dateArray, avgWeight, rawCalories) {
         yCalories: { type: 'linear', position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Calories' } },
       },
     },
+  });
+
+  const toggleBtn = document.getElementById('toggle-weight-cal');
+  if (!toggleBtn) return;
+  toggleBtn.addEventListener('click', () => {
+    mode = mode === 'daily' ? 'avg' : 'daily';
+    chart.data.datasets[0].data = series[mode].weight;
+    chart.data.datasets[0].label = WEIGHT_CAL_MODES[mode].weightLabel;
+    chart.data.datasets[1].data = series[mode].calories;
+    chart.data.datasets[1].label = WEIGHT_CAL_MODES[mode].caloriesLabel;
+    chart.update();
+    toggleBtn.textContent = mode === 'daily' ? 'Show 7-Day Avg' : 'Show Daily';
   });
 }
 
@@ -468,7 +491,7 @@ async function main() {
   });
 
   renderStatTiles(stats);
-  renderWeightCaloriesChart(dateArray, avgWeight, rawCalories);
+  renderWeightCaloriesChart(dateArray, avgWeight, rawWeight, avgCalories, rawCalories);
   renderMeasurementsChart(dateArray, table);
   renderRateOfLossChart(dateArray, weeklyRoL);
 
